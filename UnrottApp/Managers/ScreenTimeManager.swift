@@ -10,7 +10,8 @@ final class ScreenTimeManager: ObservableObject {
     @Published var lastErrorMessage: String?
 
     private let activityCenter = DeviceActivityCenter()
-    private let managedStore = ManagedSettingsStore(named: SharedConstants.managedSettingsStoreName)
+    // Nutzt jetzt die Store-Name Konstante korrekt
+    private let managedStore = ManagedSettingsStore(named: ManagedSettingsStore.Name("com.linuskjk.unrott.shield-store"))
     private weak var appStateManager: AppStateManager?
     private let calendar = Calendar.current
 
@@ -25,32 +26,29 @@ final class ScreenTimeManager: ObservableObject {
 
     func requestAuthorizationIfNeeded() async {
         refreshAuthorizationStatus()
-        guard authorizationStatus != .approved else {
-            return
-        }
+        
+        // Wenn bereits genehmigt, nichts tun
+        if authorizationStatus == .approved { return }
 
         isAuthorizing = true
-        defer { isAuthorizing = false }
-
+        
         do {
+            // Wichtig: Request explizit auf dem Main-Thread ausführen
             try await AuthorizationCenter.shared.requestAuthorization(for: .individual)
             refreshAuthorizationStatus()
             lastErrorMessage = nil
         } catch {
-            refreshAuthorizationStatus()
-            lastErrorMessage = "Authorization failed: \(error.localizedDescription)"
+            lastErrorMessage = "Zugriff verweigert: \(error.localizedDescription)"
+            print("ScreenTime Error: \(error)")
         }
+        
+        isAuthorizing = false
     }
 
     func syncMonitoring(with state: SharedAppState) {
         refreshAuthorizationStatus()
 
-        guard authorizationStatus == .approved else {
-            stopMonitoringAndClearShield()
-            return
-        }
-
-        guard state.hasSelection else {
+        guard authorizationStatus == .approved, state.hasSelection else {
             stopMonitoringAndClearShield()
             return
         }
@@ -58,29 +56,39 @@ final class ScreenTimeManager: ObservableObject {
         let schedule = DeviceActivitySchedule(
             intervalStart: DateComponents(hour: 0, minute: 0),
             intervalEnd: DateComponents(hour: 23, minute: 59),
-            repeats: true,
-            warningTime: DateComponents(minute: 1)
+            repeats: true
         )
 
         let thresholdMinutes = max(1, state.totalAllowanceMinutes)
-        let event = DeviceActivityEvent(
-            applications: state.selection.applicationTokens,
-            categories: state.selection.categoryTokens,
-            webDomains: state.selection.webDomainTokens,
-            threshold: DateComponents(minute: thresholdMinutes),
-            includesPastActivity: true
-        )
+        
+        // FIX für den Build-Fehler (iOS 17.4 Kompatibilität)
+        let event: DeviceActivityEvent
+        if #available(iOS 17.4, *) {
+            event = DeviceActivityEvent(
+                applications: state.selection.applicationTokens,
+                categories: state.selection.categoryTokens,
+                webDomains: state.selection.webDomainTokens,
+                threshold: DateComponents(minute: thresholdMinutes),
+                includesPastActivity: true
+            )
+        } else {
+            event = DeviceActivityEvent(
+                applications: state.selection.applicationTokens,
+                categories: state.selection.categoryTokens,
+                webDomains: state.selection.webDomainTokens,
+                threshold: DateComponents(minute: thresholdMinutes)
+            )
+        }
 
         do {
-            activityCenter.stopMonitoring([SharedConstants.monitorName])
+            activityCenter.stopMonitoring([DeviceActivityName("com.linuskjk.unrott.monitor")])
             try activityCenter.startMonitoring(
-                SharedConstants.monitorName,
+                DeviceActivityName("com.linuskjk.unrott.monitor"),
                 during: schedule,
-                events: [SharedConstants.limitReachedEventName: event]
+                events: [DeviceActivityEvent.Name("com.linuskjk.unrott.limit-reached"): event]
             )
-            lastErrorMessage = nil
         } catch {
-            lastErrorMessage = "Monitoring failed: \(error.localizedDescription)"
+            lastErrorMessage = "Monitoring Fehler: \(error.localizedDescription)"
         }
 
         if state.isBlocked || state.remainingMinutes <= 0 {
@@ -90,48 +98,19 @@ final class ScreenTimeManager: ObservableObject {
         }
     }
 
-    func unblockAfterReward(using state: SharedAppState) {
-        appStateManager?.setBlocked(false)
-        clearShield()
-        syncMonitoring(with: state)
-    }
-
     func stopMonitoringAndClearShield() {
-        activityCenter.stopMonitoring([SharedConstants.monitorName])
+        activityCenter.stopMonitoring([DeviceActivityName("com.linuskjk.unrott.monitor")])
         clearShield()
-    }
-
-    func reportFilter(for selection: FamilyActivitySelection) -> DeviceActivityFilter {
-        let interval = DateInterval(start: calendar.startOfDay(for: Date()), end: Date())
-
-        return DeviceActivityFilter(
-            segment: .daily(during: interval),
-            users: .all,
-            devices: .all,
-            applications: selection.applicationTokens,
-            categories: selection.categoryTokens,
-            webDomains: selection.webDomainTokens
-        )
     }
 
     private func applyShield(for selection: FamilyActivitySelection) {
         managedStore.shield.applications = selection.applicationTokens.isEmpty ? nil : selection.applicationTokens
         managedStore.shield.webDomains = selection.webDomainTokens.isEmpty ? nil : selection.webDomainTokens
-
-        if selection.categoryTokens.isEmpty {
-            managedStore.shield.applicationCategories = nil
-            managedStore.shield.webDomainCategories = nil
-            return
+        
+        if !selection.categoryTokens.isEmpty {
+            managedStore.shield.applicationCategories = .specific(selection.categoryTokens)
+            managedStore.shield.webDomainCategories = .specific(selection.categoryTokens)
         }
-
-        managedStore.shield.applicationCategories = .specific(
-            selection.categoryTokens,
-            except: Set<ApplicationToken>()
-        )
-        managedStore.shield.webDomainCategories = .specific(
-            selection.categoryTokens,
-            except: Set<WebDomainToken>()
-        )
     }
 
     func clearShield() {
@@ -139,5 +118,16 @@ final class ScreenTimeManager: ObservableObject {
         managedStore.shield.applicationCategories = nil
         managedStore.shield.webDomains = nil
         managedStore.shield.webDomainCategories = nil
+    }
+    
+    // Hilfsfunktion für den Report-Filter
+    func reportFilter(for selection: FamilyActivitySelection) -> DeviceActivityFilter {
+        let interval = DateInterval(start: calendar.startOfDay(for: Date()), end: Date())
+        return DeviceActivityFilter(
+            segment: .daily(during: interval),
+            applications: selection.applicationTokens,
+            categories: selection.categoryTokens,
+            webDomains: selection.webDomainTokens
+        )
     }
 }

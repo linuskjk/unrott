@@ -10,10 +10,9 @@ jobs:
 
       - name: Force iOS 17 Deployment Target
         run: |
-          # Sucht nach IPHONEOS_DEPLOYMENT_TARGET in der Projektdatei und setzt es auf 17.0
           find . -name "project.pbxproj" -exec sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*;/IPHONEOS_DEPLOYMENT_TARGET = 17.0;/g' {} +
 
-      - name: Build IPA
+      - name: Build App
         run: |
           xcodebuild -project "Unrott/Unrott.xcodeproj" \
           -scheme Unrott \
@@ -23,6 +22,11 @@ jobs:
           CODE_SIGNING_ALLOWED=NO \
           CODE_SIGNING_REQUIRED=NO \
           clean build
+
+      - name: Add Camera Permission
+        run: |
+          # Fügt den benötigten Text in die bereits gebaute App ein, damit sie nicht abstürzt
+          /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string 'Unrott benötigt die Kamera, um deine Liegestütze zu zählen.'" build/Build/Products/Release-iphoneos/Unrott.app/Info.plist
 
       - name: Prepare Payload
         run: |
