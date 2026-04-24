@@ -1,0 +1,35 @@
+name: Build iOS App
+on: [push]
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Xcode Select
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build App
+        run: |
+          xcodebuild -project *.xcodeproj -scheme $(basename *.xcodeproj .xcodeproj) \
+          -configuration Release \
+          -sdk iphoneos \
+          -derivedDataPath build \
+          CODE_SIGNING_ALLOWED=NO \
+          CODE_SIGNING_REQUIRED=NO
+
+      - name: Create Payload Folder
+        run: |
+          mkdir Payload
+          cp -r build/Build/Products/Release-iphoneos/*.app Payload/
+
+      - name: Zip IPA
+        run: zip -r My_App.ipa Payload
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-app
+          path: My_App.ipa
