@@ -20,7 +20,7 @@ jobs:
           -derivedDataPath build \
           CODE_SIGNING_ALLOWED=NO \
           CODE_SIGNING_REQUIRED=NO \
-          CLEAN build
+          clean build
 
       - name: Prepare Payload
         run: |
