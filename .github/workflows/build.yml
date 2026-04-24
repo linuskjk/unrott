@@ -8,8 +8,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Xcode Select
-        run: sudo xcode-select -s /Applications/Xcode.app
+      - name: Force iOS 17 Deployment Target
+        run: |
+          # Sucht nach IPHONEOS_DEPLOYMENT_TARGET in der Projektdatei und setzt es auf 17.0
+          find . -name "project.pbxproj" -exec sed -i '' 's/IPHONEOS_DEPLOYMENT_TARGET = [0-9.]*;/IPHONEOS_DEPLOYMENT_TARGET = 17.0;/g' {} +
 
       - name: Build IPA
         run: |

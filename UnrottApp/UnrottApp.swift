@@ -1,9 +1,8 @@
 import SwiftUI
 
-@available(iOS 17.0, *) // Diese Zeile MUSS nach oben
 @main
 struct UnrottApp: App {
-    @StateObject private var appStateManager: AppStateManager
+    @StateObject private var appStateManager = AppStateManager()
     @StateObject private var screenTimeManager: ScreenTimeManager
 
     init() {
@@ -14,7 +13,7 @@ struct UnrottApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView() // Stelle sicher, dass RootView auch in der ContentView.swift ist
+            ContentView()
                 .environmentObject(appStateManager)
                 .environmentObject(screenTimeManager)
         }
