@@ -19,44 +19,61 @@ struct ContentView: View {
     }
 
     var body: some View {
-        TabView {
-            SetupView()
-                .tabItem {
-                    Label("Setup", systemImage: "slider.horizontal.3")
-                }
+        ZStack(alignment: .topTrailing) {
+            TabView {
+                SetupView()
+                    .tabItem {
+                        Label("Setup", systemImage: "slider.horizontal.3")
+                    }
 
-            DashboardView()
-                .tabItem {
-                    Label("Dashboard", systemImage: "chart.bar.fill")
-                }
+                DashboardView()
+                    .tabItem {
+                        Label("Dashboard", systemImage: "chart.bar.fill")
+                    }
 
-            PushUpWorkoutView()
-                .tabItem {
-                    Label("Push-Ups", systemImage: "figure.strengthtraining.traditional")
-                }
-        }
-        .tint(Theme.tint)
-        .environmentObject(appStateManager)
-        .environmentObject(screenTimeManager)
-        .task {
-            await screenTimeManager.requestAuthorizationIfNeeded()
-            appStateManager.refreshFromStore()
-            screenTimeManager.syncMonitoring(with: appStateManager.state)
-        }
-        .onReceive(appStateManager.$state.dropFirst()) { state in
-            screenTimeManager.syncMonitoring(with: state)
-        }
-        .onChange(of: scenePhase) { _, newPhase in
-            switch newPhase {
-            case .active:
-                appStateManager.refreshFromStore()
-                screenTimeManager.refreshAuthorizationStatus()
-                screenTimeManager.syncMonitoring(with: appStateManager.state)
-            case .background:
-                screenTimeManager.syncMonitoring(with: appStateManager.state)
-            default:
-                break
+                PushUpWorkoutView()
+                    .tabItem {
+                        Label("Push-Ups", systemImage: "figure.strengthtraining.traditional")
+                    }
             }
+            .tint(Theme.tint)
+            .environmentObject(appStateManager)
+            .environmentObject(screenTimeManager)
+            .task {
+                await screenTimeManager.requestAuthorizationIfNeeded()
+                appStateManager.refreshFromStore()
+                screenTimeManager.syncMonitoring(with: appStateManager.state)
+            }
+            .onReceive(appStateManager.$state.dropFirst()) { state in
+                screenTimeManager.syncMonitoring(with: state)
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                switch newPhase {
+                case .active:
+                    appStateManager.refreshFromStore()
+                    screenTimeManager.refreshAuthorizationStatus()
+                    screenTimeManager.syncMonitoring(with: appStateManager.state)
+                case .background:
+                    screenTimeManager.syncMonitoring(with: appStateManager.state)
+                default:
+                    break
+                }
+            }
+
+            Text("UNROTT LIVE")
+                .font(.caption2.weight(.bold))
+                .padding(.horizontal, 10)
+                .padding(.vertical, 6)
+                .foregroundStyle(.white)
+                .background(Theme.primaryGradient)
+                .clipShape(Capsule())
+                .overlay(
+                    Capsule()
+                        .strokeBorder(Color.white.opacity(0.35), lineWidth: 1)
+                )
+                .padding(.top, 8)
+                .padding(.trailing, 12)
+                .allowsHitTesting(false)
         }
     }
 }
