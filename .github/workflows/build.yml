@@ -25,20 +25,19 @@ jobs:
 
       - name: Inject Permissions (Camera & ScreenTime)
         run: |
-          # Pfad zur Info.plist in der gebauten App
           PLIST="build/Build/Products/Release-iphoneos/Unrott.app/Info.plist"
           
-          # Kamera-Berechtigung
-          /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string 'Unrott benötigt die Kamera, um deine Liegestütze zu zählen.'" "$PLIST" || true
+          # Bestehende Keys löschen, falls vorhanden, um Fehler zu vermeiden, dann neu hinzufügen
+          /usr/libexec/PlistBuddy -c "Delete :NSCameraUsageDescription" "$PLIST" || true
+          /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string 'Unrott benötigt die Kamera, um deine Liegestütze zu zählen.'" "$PLIST"
           
-          # ScreenTime / Family Controls (Zwingend für den Button)
-          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.family-controls boolean true" "$PLIST" || true
+          /usr/libexec/PlistBuddy -c "Delete :com.apple.developer.family-controls" "$PLIST" || true
+          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.family-controls boolean true" "$PLIST"
           
-          # Parental Controls (Zusätzliche Sicherheit für Sideloading)
-          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.parental-controls boolean true" "$PLIST" || true
+          /usr/libexec/PlistBuddy -c "Delete :com.apple.developer.parental-controls" "$PLIST" || true
+          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.parental-controls boolean true" "$PLIST"
           
-          # Anzeige-Check im Log (Optional)
-          echo "Berechtigungen wurden in $PLIST injiziert."
+          echo "Berechtigungen erfolgreich injiziert."
 
       - name: Prepare Payload
         run: |

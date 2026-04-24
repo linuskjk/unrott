@@ -25,25 +25,23 @@ final class ScreenTimeManager: ObservableObject {
     }
 
     func requestAuthorizationIfNeeded() async {
-        refreshAuthorizationStatus()
+        // Erzwinge Refresh vor dem Request
+        authorizationStatus = AuthorizationCenter.shared.authorizationStatus
         
-        // Wenn bereits genehmigt, nichts tun
         if authorizationStatus == .approved { return }
 
         isAuthorizing = true
-        
         do {
-            // Wichtig: Request explizit auf dem Main-Thread ausführen
+            // Der eigentliche System-Aufruf
             try await AuthorizationCenter.shared.requestAuthorization(for: .individual)
-            refreshAuthorizationStatus()
+            authorizationStatus = AuthorizationCenter.shared.authorizationStatus
             lastErrorMessage = nil
         } catch {
-            lastErrorMessage = "Zugriff verweigert: \(error.localizedDescription)"
-            print("ScreenTime Error: \(error)")
+            lastErrorMessage = "Fehler: \(error.localizedDescription)"
         }
-        
         isAuthorizing = false
     }
+
 
     func syncMonitoring(with state: SharedAppState) {
         refreshAuthorizationStatus()

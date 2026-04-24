@@ -63,6 +63,15 @@ struct AppSelectionView: View {
                         }
                         .buttonStyle(PrimaryActionButtonStyle())
                         .disabled(screenTimeManager.authorizationStatus == .approved || screenTimeManager.isAuthorizing)
+                        
+                        // Fehlermeldung unter dem Button anzeigen
+                        if let error = screenTimeManager.lastErrorMessage {
+                            Text(error)
+                                .font(.caption)
+                                .foregroundStyle(.red)
+                                .multilineTextAlignment(.center)
+                                .padding(.top, 4)
+                        }
                     }
 
                     SectionCard(title: "Shared Daily Limit", icon: "timer") {
