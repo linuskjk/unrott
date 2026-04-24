@@ -27,17 +27,17 @@ jobs:
         run: |
           PLIST="build/Build/Products/Release-iphoneos/Unrott.app/Info.plist"
           
-          # Bestehende Keys löschen, falls vorhanden, um Fehler zu vermeiden, dann neu hinzufügen
-          /usr/libexec/PlistBuddy -c "Delete :NSCameraUsageDescription" "$PLIST" || true
-          /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string 'Unrott benötigt die Kamera, um deine Liegestütze zu zählen.'" "$PLIST"
+          # Kamera-Berechtigung (fügt sie hinzu, falls sie fehlt)
+          /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string 'Unrott benötigt die Kamera, um deine Liegestütze zu zählen.'" "$PLIST" || /usr/libexec/PlistBuddy -c "Set :NSCameraUsageDescription 'Unrott benötigt die Kamera, um deine Liegestütze zu zählen.'" "$PLIST"
           
-          /usr/libexec/PlistBuddy -c "Delete :com.apple.developer.family-controls" "$PLIST" || true
-          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.family-controls boolean true" "$PLIST"
+          # ScreenTime / Family Controls (Wichtig: bool statt boolean)
+          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.family-controls bool true" "$PLIST" || /usr/libexec/PlistBuddy -c "Set :com.apple.developer.family-controls true" "$PLIST"
           
-          /usr/libexec/PlistBuddy -c "Delete :com.apple.developer.parental-controls" "$PLIST" || true
-          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.parental-controls boolean true" "$PLIST"
+          # Parental Controls
+          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.parental-controls bool true" "$PLIST" || /usr/libexec/PlistBuddy -c "Set :com.apple.developer.parental-controls true" "$PLIST"
           
           echo "Berechtigungen erfolgreich injiziert."
+
 
       - name: Prepare Payload
         run: |
