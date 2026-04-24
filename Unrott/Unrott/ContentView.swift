@@ -47,7 +47,8 @@ struct ContentView: View {
             .onReceive(appStateManager.$state.dropFirst()) { state in
                 screenTimeManager.syncMonitoring(with: state)
             }
-            .onChange(of: scenePhase) { _, newPhase in
+            // Korrigierte Version für maximale Kompatibilität:
+            .onChange(of: scenePhase) { newPhase in
                 switch newPhase {
                 case .active:
                     appStateManager.refreshFromStore()
@@ -59,6 +60,7 @@ struct ContentView: View {
                     break
                 }
             }
+
 
             Text("UNROTT LIVE")
                 .font(.caption2.weight(.bold))
