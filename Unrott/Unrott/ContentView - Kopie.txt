@@ -343,67 +343,53 @@ private final class ScreenTimeManager: ObservableObject {
         }
     }
 
-func syncMonitoring(with state: AppState) {
-    refreshAuthorizationStatus()
+    func syncMonitoring(with state: AppState) {
+        refreshAuthorizationStatus()
 
-    guard authorizationStatus == .approved else {
-        stopMonitoringAndClearShield()
-        return
-    }
+        guard authorizationStatus == .approved else {
+            stopMonitoringAndClearShield()
+            return
+        }
 
-    guard state.hasSelection else {
-        stopMonitoringAndClearShield()
-        return
-    }
+        guard state.hasSelection else {
+            stopMonitoringAndClearShield()
+            return
+        }
 
-    let schedule = DeviceActivitySchedule(
-        intervalStart: DateComponents(hour: 0, minute: 0),
-        intervalEnd: DateComponents(hour: 23, minute: 59),
-        repeats: true,
-        warningTime: DateComponents(minute: 1)
-    )
+        let schedule = DeviceActivitySchedule(
+            intervalStart: DateComponents(hour: 0, minute: 0),
+            intervalEnd: DateComponents(hour: 23, minute: 59),
+            repeats: true,
+            warningTime: DateComponents(minute: 1)
+        )
 
-    let thresholdMinutes = max(1, state.totalAllowanceMinutes)
-    
-    // Fix: DeviceActivityEvent ab iOS 17.4 vs. ältere Versionen
-    let event: DeviceActivityEvent
-    if #available(iOS 17.4, *) {
-        event = DeviceActivityEvent(
+        let thresholdMinutes = max(1, state.totalAllowanceMinutes)
+        let event = DeviceActivityEvent(
             applications: state.selection.applicationTokens,
             categories: state.selection.categoryTokens,
             webDomains: state.selection.webDomainTokens,
             threshold: DateComponents(minute: thresholdMinutes),
             includesPastActivity: true
         )
-    } else {
-        // Fallback für iOS 17.0 - 17.3
-        event = DeviceActivityEvent(
-            applications: state.selection.applicationTokens,
-            categories: state.selection.categoryTokens,
-            webDomains: state.selection.webDomainTokens,
-            threshold: DateComponents(minute: thresholdMinutes)
-        )
-    }
 
-    do {
-        activityCenter.stopMonitoring([AppConstants.monitorName])
-        try activityCenter.startMonitoring(
-            AppConstants.monitorName,
-            during: schedule,
-            events: [AppConstants.limitReachedEventName: event]
-        )
-        lastErrorMessage = nil
-    } catch {
-        lastErrorMessage = "Monitoring failed: \(error.localizedDescription)"
-    }
+        do {
+            activityCenter.stopMonitoring([AppConstants.monitorName])
+            try activityCenter.startMonitoring(
+                AppConstants.monitorName,
+                during: schedule,
+                events: [AppConstants.limitReachedEventName: event]
+            )
+            lastErrorMessage = nil
+        } catch {
+            lastErrorMessage = "Monitoring failed: \(error.localizedDescription)"
+        }
 
-    if state.isBlocked || state.remainingMinutes <= 0 {
-        applyShield(for: state.selection)
-    } else {
-        clearShield()
+        if state.isBlocked || state.remainingMinutes <= 0 {
+            applyShield(for: state.selection)
+        } else {
+            clearShield()
+        }
     }
-}
-
 
     func unblockAfterReward(using state: AppState) {
         clearShield()
@@ -771,16 +757,15 @@ private struct SetupView: View {
                 .padding(.top, 12)
                 .padding(.bottom, 24)
 
-                if appStateManager.state.hasSelection && screenTimeManager.authorizationStatus == .approved {
+                if state.hasSelection && screenTimeManager.authorizationStatus == .approved {
                     DeviceActivityReport(
                         AppConstants.reportContext,
-                        filter: screenTimeManager.reportFilter(for: appStateManager.state.selection)
+                        filter: screenTimeManager.reportFilter(for: state.selection)
                     )
                     .frame(width: 1, height: 1)
                     .opacity(0.01)
                     .accessibilityHidden(true)
                 }
-
             }
             .scrollIndicators(.hidden)
             .background(AppBackgroundView())
@@ -1394,9 +1379,7 @@ private final class PushUpDetector: NSObject, ObservableObject {
 
         let dotProduct = (v1.dx * v2.dx) + (v1.dy * v2.dy)
         let cosine = max(-1.0, min(1.0, dotProduct / (v1Length * v2Length)))
-        
-        // Fix: Explizit Double.pi verwenden, um Mehrdeutigkeit zu vermeiden
-        return acos(cosine) * 180.0 / Double.pi
+        return acos(cosine) * 180.0 / .pi
     }
 
     private func processSmoothedAngle(_ angle: Double) {
