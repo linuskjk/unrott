@@ -1,6 +1,8 @@
 import SwiftUI
 
 @main
+
+@available(iOS 17.0, *)
 struct UnrottApp: App {
     @StateObject private var appStateManager: AppStateManager
     @StateObject private var screenTimeManager: ScreenTimeManager

@@ -1453,7 +1453,7 @@ extension PushUpDetector: AVCaptureVideoDataOutputSampleBufferDelegate {
         analyze(sampleBuffer: sampleBuffer)
     }
 }
-
+@available(iOS 17.0, *)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
