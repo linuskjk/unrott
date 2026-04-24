@@ -7,6 +7,7 @@ import AVFoundation
 import Vision
 import CoreGraphics
 
+@available(iOS 17.0, *)
 struct ContentView: View {
     @StateObject private var appStateManager: AppStateManager
     @StateObject private var screenTimeManager: ScreenTimeManager
