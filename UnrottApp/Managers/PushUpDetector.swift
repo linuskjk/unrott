@@ -10,6 +10,7 @@ final class PushUpDetector: NSObject, ObservableObject {
     @Published private(set) var isRunning = false
     @Published private(set) var smoothedElbowAngle: Double = 180
 
+
     let session = AVCaptureSession()
 
     private let sessionQueue = DispatchQueue(label: "com.example.unrott.camera-session")

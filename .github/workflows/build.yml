@@ -23,10 +23,22 @@ jobs:
           CODE_SIGNING_REQUIRED=NO \
           clean build
 
-      - name: Add Camera Permission
+      - name: Inject Permissions (Camera & ScreenTime)
         run: |
-          # Fügt den benötigten Text in die bereits gebaute App ein, damit sie nicht abstürzt
-          /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string 'Unrott benötigt die Kamera, um deine Liegestütze zu zählen.'" build/Build/Products/Release-iphoneos/Unrott.app/Info.plist
+          # Pfad zur Info.plist in der gebauten App
+          PLIST="build/Build/Products/Release-iphoneos/Unrott.app/Info.plist"
+          
+          # Kamera-Berechtigung
+          /usr/libexec/PlistBuddy -c "Add :NSCameraUsageDescription string 'Unrott benötigt die Kamera, um deine Liegestütze zu zählen.'" "$PLIST" || true
+          
+          # ScreenTime / Family Controls (Zwingend für den Button)
+          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.family-controls boolean true" "$PLIST" || true
+          
+          # Parental Controls (Zusätzliche Sicherheit für Sideloading)
+          /usr/libexec/PlistBuddy -c "Add :com.apple.developer.parental-controls boolean true" "$PLIST" || true
+          
+          # Anzeige-Check im Log (Optional)
+          echo "Berechtigungen wurden in $PLIST injiziert."
 
       - name: Prepare Payload
         run: |

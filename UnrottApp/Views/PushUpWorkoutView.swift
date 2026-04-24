@@ -3,10 +3,11 @@ import SwiftUI
 struct PushUpWorkoutView: View {
     @EnvironmentObject private var appStateManager: AppStateManager
     @EnvironmentObject private var screenTimeManager: ScreenTimeManager
-
+    
     @StateObject private var detector = PushUpDetector()
     @State private var claimedMinutes = 0
-
+    @State private var showSkeleton = true // Kästchen für die Linien-Visualisierung
+    
     private var claimableMinutes: Int {
         max(0, detector.earnedMinutes - claimedMinutes)
     }
@@ -18,16 +19,9 @@ struct PushUpWorkoutView: View {
 
     private var progressToNextMinute: Double {
         let count = detector.pushUpCount
-        guard count > 0 else {
-            return 0
-        }
-
+        guard count > 0 else { return 0 }
         let remainder = count % 5
-        if remainder == 0 {
-            return 1
-        }
-
-        return Double(remainder) / 5.0
+        return remainder == 0 ? 1.0 : Double(remainder) / 5.0
     }
 
     var body: some View {
@@ -36,22 +30,19 @@ struct PushUpWorkoutView: View {
                 VStack(spacing: 14) {
                     HeroHeaderView(
                         title: "Push-Up Unlock",
-                        subtitle: "Every clean set adds extra shared time across all selected apps.",
+                        subtitle: "Jeder saubere Satz schaltet Zeit für deine Apps frei.",
                         systemImage: "figure.strengthtraining.traditional",
-                        badgeText: "Claimable +\(claimableMinutes)m"
+                        badgeText: "Verfügbar +\(claimableMinutes)m"
                     )
 
-                    SectionCard(title: "Unlock With Push-Ups", icon: "figure.strengthtraining.traditional") {
-                        Text("Every 5 valid push-ups gives +1 minute of shared app time.")
-                            .font(.subheadline)
-                            .foregroundStyle(.secondary)
-
+                    SectionCard(title: "Training", icon: "figure.strengthtraining.traditional") {
                         HStack {
-                            Label(detector.isRunning ? "Camera On" : "Camera Off", systemImage: detector.isRunning ? "video.fill" : "video.slash.fill")
+                            Label(detector.isRunning ? "Kamera An" : "Kamera Aus", 
+                                  systemImage: detector.isRunning ? "video.fill" : "video.slash.fill")
                                 .font(.caption.weight(.semibold))
                                 .foregroundStyle(detector.isRunning ? .green : .orange)
                             Spacer()
-                            Text("Angle: \(Int(detector.smoothedElbowAngle))°")
+                            Text("Winkel: \(Int(detector.smoothedElbowAngle))°")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
@@ -59,26 +50,56 @@ struct PushUpWorkoutView: View {
                         VStack(alignment: .leading, spacing: 6) {
                             ProgressView(value: progressToNextMinute)
                                 .tint(AppTheme.tint)
-
-                            Text(repsToNextMinute == 0 ? "Minute ready to claim." : "\(repsToNextMinute) reps to next minute")
+                            Text(repsToNextMinute == 0 ? "Minute bereit zum Einlösen." : "Noch \(repsToNextMinute) Wiederholungen")
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
                     }
 
-                    Group {
+                    // KAMERA-BEREICH MIT SKELETT-OVERLAY
+                    VStack(spacing: 10) {
                         if detector.permissionDenied {
                             permissionDeniedView
                         } else {
-                            CameraPreviewView(session: detector.session)
-                                .frame(height: 320)
-                                .clipShape(RoundedRectangle(cornerRadius: 22, style: .continuous))
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 22, style: .continuous)
-                                        .strokeBorder(AppTheme.border, lineWidth: 1)
-                                )
-                                .shadow(color: AppTheme.shadow, radius: 10, x: 0, y: 6)
+                            ZStack {
+                                CameraPreviewView(session: detector.session)
+                                    .frame(height: 320)
+                                    .clipShape(RoundedRectangle(cornerRadius: 22))
+                                
+                                // Skelett zeichnen, wenn aktiv
+                                if showSkeleton && detector.isRunning {
+                                    GeometryReader { geo in
+                                        Path { path in
+                                            for line in detector.skeletonLines {
+                                                let start = CGPoint(
+                                                    x: line.start.x * geo.size.width,
+                                                    y: (1 - line.start.y) * geo.size.height
+                                                )
+                                                let end = CGPoint(
+                                                    x: line.end.x * geo.size.width,
+                                                    y: (1 - line.end.y) * geo.size.height
+                                                )
+                                                path.move(to: start)
+                                                path.addLine(to: end)
+                                            }
+                                        }
+                                        .stroke(Color.green, lineWidth: 3)
+                                        .shadow(radius: 2)
+                                    }
+                                }
+                            }
+                            .frame(height: 320)
+                            .overlay(RoundedRectangle(cornerRadius: 22).strokeBorder(AppTheme.border, lineWidth: 1))
+                            .shadow(color: AppTheme.shadow, radius: 10, x: 0, y: 6)
                         }
+
+                        // Das Kästchen (Toggle)
+                        Toggle(isOn: $showSkeleton) {
+                            Label("Linien anzeigen", systemImage: "figure.arms.open")
+                                .font(.caption.weight(.bold))
+                        }
+                        .toggleStyle(SwitchToggleStyle(tint: AppTheme.tint))
+                        .padding(.horizontal, 4)
                     }
 
                     HStack(spacing: 12) {
@@ -86,25 +107,19 @@ struct PushUpWorkoutView: View {
                             title: "Push-Ups",
                             value: "\(detector.pushUpCount)",
                             color: .blue,
-                            icon: "flame.fill",
-                            subtitle: repsToNextMinute == 0 ? "Ready to claim" : "\(repsToNextMinute) reps to next minute"
+                            icon: "flame.fill"
                         )
                         StatCardView(
-                            title: "Earned",
-                            value: DurationFormatter.minutesString(detector.earnedMinutes),
+                            title: "Verdient",
+                            value: "\(detector.earnedMinutes)m",
                             color: .mint,
-                            icon: "clock.badge.checkmark",
-                            subtitle: "Claimable now: \(DurationFormatter.minutesString(claimableMinutes))"
+                            icon: "clock.badge.checkmark"
                         )
                     }
 
                     HStack(spacing: 12) {
-                        Button(detector.isRunning ? "Stop Camera" : "Start Camera") {
-                            if detector.isRunning {
-                                detector.stop()
-                            } else {
-                                detector.start()
-                            }
+                        Button(detector.isRunning ? "Stop" : "Start") {
+                            detector.isRunning ? detector.stop() : detector.start()
                         }
                         .buttonStyle(PrimaryActionButtonStyle())
                         .frame(maxWidth: .infinity)
@@ -120,83 +135,37 @@ struct PushUpWorkoutView: View {
                     Button {
                         claimEarnedTime()
                     } label: {
-                        Label("Claim +\(claimableMinutes) min", systemImage: "gift.fill")
+                        Label("Jetzt +\(claimableMinutes) Min einlösen", systemImage: "gift.fill")
                             .frame(maxWidth: .infinity)
                     }
                     .buttonStyle(PrimaryActionButtonStyle())
                     .disabled(claimableMinutes == 0)
-
-                    Text("Claimed time is added to the global pool and immediately unblocks protected apps.")
-                        .font(.footnote)
-                        .multilineTextAlignment(.center)
-                        .foregroundStyle(.secondary)
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 12)
                 .padding(.bottom, 24)
             }
-            .scrollIndicators(.hidden)
             .background(AppBackgroundView())
-            .navigationTitle("Push-Up Unlock")
-            .navigationBarTitleDisplayMode(.inline)
-            .onDisappear {
-                detector.stop()
-            }
-            .onChange(of: detector.earnedMinutes) { _, newValue in
-                if claimedMinutes > newValue {
-                    claimedMinutes = newValue
-                }
-            }
+            .navigationTitle("Workout")
+            .onDisappear { detector.stop() }
         }
     }
 
     private var permissionDeniedView: some View {
         VStack(spacing: 10) {
-            Image(systemName: "camera.fill")
-                .font(.largeTitle)
-                .foregroundStyle(.orange)
-            Text("Camera access is denied.")
-                .font(.headline)
-            Text("Enable camera permission in Settings to count push-ups.")
-                .font(.footnote)
-                .foregroundStyle(.secondary)
-                .multilineTextAlignment(.center)
+            Image(systemName: "camera.fill").font(.largeTitle).foregroundStyle(.orange)
+            Text("Kein Kamerazugriff").font(.headline)
         }
-        .frame(maxWidth: .infinity, minHeight: 220)
-        .padding()
-        .background(
-            RoundedRectangle(cornerRadius: AppTheme.cardRadius, style: .continuous)
-                .fill(.ultraThinMaterial)
-        )
-        .overlay(
-            RoundedRectangle(cornerRadius: AppTheme.cardRadius, style: .continuous)
-                .strokeBorder(AppTheme.border, lineWidth: 1)
-        )
-        .shadow(color: AppTheme.shadow, radius: 10, x: 0, y: 6)
+        .frame(maxWidth: .infinity, minHeight: 320)
+        .background(.ultraThinMaterial)
+        .clipShape(RoundedRectangle(cornerRadius: 22))
     }
 
     private func claimEarnedTime() {
         let delta = claimableMinutes
-        guard delta > 0 else {
-            return
-        }
-
+        guard delta > 0 else { return }
         appStateManager.addEarnedMinutes(delta)
         appStateManager.setBlocked(false)
         claimedMinutes += delta
-
-        let newState = appStateManager.state
-        screenTimeManager.unblockAfterReward(using: newState)
-    }
-}
-
-struct PushUpWorkoutView_Previews: PreviewProvider {
-    static var previews: some View {
-        let appStateManager = AppStateManager()
-        let screenTimeManager = ScreenTimeManager(appStateManager: appStateManager)
-
-        PushUpWorkoutView()
-            .environmentObject(appStateManager)
-            .environmentObject(screenTimeManager)
+        screenTimeManager.unblockAfterReward(using: appStateManager.state)
     }
 }
