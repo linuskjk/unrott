@@ -965,6 +965,7 @@ private struct DashboardView: View {
     }
 }
 
+@available(iOS 17.0, *) // <-- Diese Zeile hinzufügen!
 private struct PushUpWorkoutView: View {
     @EnvironmentObject private var appStateManager: AppStateManager
     @EnvironmentObject private var screenTimeManager: ScreenTimeManager
@@ -1107,7 +1108,7 @@ private struct PushUpWorkoutView: View {
             .onDisappear {
                 detector.stop()
             }
-            .onChange(of: detector.earnedMinutes) { _, newValue in
+            .onChange(of: detector.earnedMinutes) { newValue in
                 if claimedMinutes > newValue {
                     claimedMinutes = newValue
                 }
