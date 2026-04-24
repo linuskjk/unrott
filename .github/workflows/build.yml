@@ -1,35 +1,35 @@
-name: Build iOS App
+name: Build Unrott
 on: [push]
 
 jobs:
   build:
     runs-on: macos-latest
     steps:
-      - name: Checkout Code
+      - name: Checkout
         uses: actions/checkout@v4
 
       - name: Xcode Select
         run: sudo xcode-select -s /Applications/Xcode.app
 
-      - name: Build App
+      - name: Build IPA
         run: |
-          xcodebuild -project *.xcodeproj -scheme $(basename *.xcodeproj .xcodeproj) \
+          xcodebuild -project "Unrott/Unrott.xcodeproj" \
+          -scheme Unrott \
           -configuration Release \
           -sdk iphoneos \
           -derivedDataPath build \
           CODE_SIGNING_ALLOWED=NO \
-          CODE_SIGNING_REQUIRED=NO
+          CODE_SIGNING_REQUIRED=NO \
+          CLEAN build
 
-      - name: Create Payload Folder
+      - name: Prepare Payload
         run: |
-          mkdir Payload
-          cp -r build/Build/Products/Release-iphoneos/*.app Payload/
-
-      - name: Zip IPA
-        run: zip -r My_App.ipa Payload
+          mkdir -p Payload
+          cp -r build/Build/Products/Release-iphoneos/Unrott.app Payload/
+          zip -r Unrott.ipa Payload
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
         with:
-          name: ios-app
-          path: My_App.ipa
+          name: Unrott-IPA
+          path: Unrott.ipa

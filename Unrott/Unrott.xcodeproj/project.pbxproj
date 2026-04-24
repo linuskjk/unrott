@@ -1,0 +1,905 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		1543E9552F9BEB7700769EEF /* UnrottApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E9542F9BEB7700769EEF /* UnrottApp.swift */; };
+		1543E9572F9BEB7700769EEF /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E9562F9BEB7700769EEF /* ContentView.swift */; };
+		1543E9592F9BEB7900769EEF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1543E9582F9BEB7900769EEF /* Assets.xcassets */; };
+		1543E95C2F9BEB7900769EEF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1543E95B2F9BEB7900769EEF /* Preview Assets.xcassets */; };
+		1543E9662F9BEB7A00769EEF /* UnrottTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E9652F9BEB7A00769EEF /* UnrottTests.swift */; };
+		1543E9702F9BEB7A00769EEF /* UnrottUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E96F2F9BEB7A00769EEF /* UnrottUITests.swift */; };
+		1543E9722F9BEB7A00769EEF /* UnrottUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E9712F9BEB7A00769EEF /* UnrottUITestsLaunchTests.swift */; };
+		1543E9852F9BEE1800769EEF /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1543E9842F9BEE1800769EEF /* DeviceActivity.framework */; };
+		1543E9882F9BEE1800769EEF /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E9872F9BEE1800769EEF /* DeviceActivityMonitorExtension.swift */; };
+		1543E98D2F9BEE1800769EEF /* ScreenTimeMonitorExtention.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 1543E9822F9BEE1800769EEF /* ScreenTimeMonitorExtention.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1543E9992F9BEE5400769EEF /* ScreenTimeReportExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E9982F9BEE5400769EEF /* ScreenTimeReportExtention.swift */; };
+		1543E99B2F9BEE5400769EEF /* TotalActivityReport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E99A2F9BEE5400769EEF /* TotalActivityReport.swift */; };
+		1543E99D2F9BEE5400769EEF /* TotalActivityView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1543E99C2F9BEE5400769EEF /* TotalActivityView.swift */; };
+		1543E9A22F9BEE5400769EEF /* ScreenTimeReportExtention.appex in Embed ExtensionKit Extensions */ = {isa = PBXBuildFile; fileRef = 1543E9962F9BEE5400769EEF /* ScreenTimeReportExtention.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		1543E9A82F9BEF3B00769EEF /* DeviceActivity.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1543E9842F9BEE1800769EEF /* DeviceActivity.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1543E9622F9BEB7A00769EEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1543E9492F9BEB7700769EEF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1543E9502F9BEB7700769EEF;
+			remoteInfo = Unrott;
+		};
+		1543E96C2F9BEB7A00769EEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1543E9492F9BEB7700769EEF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1543E9502F9BEB7700769EEF;
+			remoteInfo = Unrott;
+		};
+		1543E98B2F9BEE1800769EEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1543E9492F9BEB7700769EEF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1543E9812F9BEE1800769EEF;
+			remoteInfo = ScreenTimeMonitorExtention;
+		};
+		1543E9A02F9BEE5400769EEF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1543E9492F9BEB7700769EEF /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1543E9952F9BEE5400769EEF;
+			remoteInfo = ScreenTimeReportExtention;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		1543E9912F9BEE1800769EEF /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1543E98D2F9BEE1800769EEF /* ScreenTimeMonitorExtention.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E9A62F9BEE5400769EEF /* Embed ExtensionKit Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(EXTENSIONS_FOLDER_PATH)";
+			dstSubfolderSpec = 16;
+			files = (
+				1543E9A22F9BEE5400769EEF /* ScreenTimeReportExtention.appex in Embed ExtensionKit Extensions */,
+			);
+			name = "Embed ExtensionKit Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		1543E9512F9BEB7700769EEF /* Unrott.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Unrott.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1543E9542F9BEB7700769EEF /* UnrottApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrottApp.swift; sourceTree = "<group>"; };
+		1543E9562F9BEB7700769EEF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1543E9582F9BEB7900769EEF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1543E95B2F9BEB7900769EEF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1543E9612F9BEB7A00769EEF /* UnrottTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnrottTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1543E9652F9BEB7A00769EEF /* UnrottTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrottTests.swift; sourceTree = "<group>"; };
+		1543E96B2F9BEB7A00769EEF /* UnrottUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = UnrottUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1543E96F2F9BEB7A00769EEF /* UnrottUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrottUITests.swift; sourceTree = "<group>"; };
+		1543E9712F9BEB7A00769EEF /* UnrottUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnrottUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1543E9822F9BEE1800769EEF /* ScreenTimeMonitorExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ScreenTimeMonitorExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1543E9842F9BEE1800769EEF /* DeviceActivity.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DeviceActivity.framework; path = System/Library/Frameworks/DeviceActivity.framework; sourceTree = SDKROOT; };
+		1543E9872F9BEE1800769EEF /* DeviceActivityMonitorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceActivityMonitorExtension.swift; sourceTree = "<group>"; };
+		1543E9892F9BEE1800769EEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1543E98A2F9BEE1800769EEF /* ScreenTimeMonitorExtention.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenTimeMonitorExtention.entitlements; sourceTree = "<group>"; };
+		1543E9962F9BEE5400769EEF /* ScreenTimeReportExtention.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.extensionkit-extension"; includeInIndex = 0; path = ScreenTimeReportExtention.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		1543E9982F9BEE5400769EEF /* ScreenTimeReportExtention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenTimeReportExtention.swift; sourceTree = "<group>"; };
+		1543E99A2F9BEE5400769EEF /* TotalActivityReport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityReport.swift; sourceTree = "<group>"; };
+		1543E99C2F9BEE5400769EEF /* TotalActivityView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalActivityView.swift; sourceTree = "<group>"; };
+		1543E99E2F9BEE5400769EEF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1543E99F2F9BEE5400769EEF /* ScreenTimeReportExtention.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ScreenTimeReportExtention.entitlements; sourceTree = "<group>"; };
+		1543E9A72F9BEEF800769EEF /* Unrott.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Unrott.entitlements; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		1543E94E2F9BEB7700769EEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E95E2F9BEB7A00769EEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E9682F9BEB7A00769EEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E97F2F9BEE1800769EEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1543E9852F9BEE1800769EEF /* DeviceActivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E9932F9BEE5400769EEF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1543E9A82F9BEF3B00769EEF /* DeviceActivity.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		1543E9482F9BEB7700769EEF = {
+			isa = PBXGroup;
+			children = (
+				1543E9532F9BEB7700769EEF /* Unrott */,
+				1543E9642F9BEB7A00769EEF /* UnrottTests */,
+				1543E96E2F9BEB7A00769EEF /* UnrottUITests */,
+				1543E9862F9BEE1800769EEF /* ScreenTimeMonitorExtention */,
+				1543E9972F9BEE5400769EEF /* ScreenTimeReportExtention */,
+				1543E9832F9BEE1800769EEF /* Frameworks */,
+				1543E9522F9BEB7700769EEF /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		1543E9522F9BEB7700769EEF /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				1543E9512F9BEB7700769EEF /* Unrott.app */,
+				1543E9612F9BEB7A00769EEF /* UnrottTests.xctest */,
+				1543E96B2F9BEB7A00769EEF /* UnrottUITests.xctest */,
+				1543E9822F9BEE1800769EEF /* ScreenTimeMonitorExtention.appex */,
+				1543E9962F9BEE5400769EEF /* ScreenTimeReportExtention.appex */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		1543E9532F9BEB7700769EEF /* Unrott */ = {
+			isa = PBXGroup;
+			children = (
+				1543E9A72F9BEEF800769EEF /* Unrott.entitlements */,
+				1543E9542F9BEB7700769EEF /* UnrottApp.swift */,
+				1543E9562F9BEB7700769EEF /* ContentView.swift */,
+				1543E9582F9BEB7900769EEF /* Assets.xcassets */,
+				1543E95A2F9BEB7900769EEF /* Preview Content */,
+			);
+			path = Unrott;
+			sourceTree = "<group>";
+		};
+		1543E95A2F9BEB7900769EEF /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				1543E95B2F9BEB7900769EEF /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1543E9642F9BEB7A00769EEF /* UnrottTests */ = {
+			isa = PBXGroup;
+			children = (
+				1543E9652F9BEB7A00769EEF /* UnrottTests.swift */,
+			);
+			path = UnrottTests;
+			sourceTree = "<group>";
+		};
+		1543E96E2F9BEB7A00769EEF /* UnrottUITests */ = {
+			isa = PBXGroup;
+			children = (
+				1543E96F2F9BEB7A00769EEF /* UnrottUITests.swift */,
+				1543E9712F9BEB7A00769EEF /* UnrottUITestsLaunchTests.swift */,
+			);
+			path = UnrottUITests;
+			sourceTree = "<group>";
+		};
+		1543E9832F9BEE1800769EEF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1543E9842F9BEE1800769EEF /* DeviceActivity.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1543E9862F9BEE1800769EEF /* ScreenTimeMonitorExtention */ = {
+			isa = PBXGroup;
+			children = (
+				1543E9872F9BEE1800769EEF /* DeviceActivityMonitorExtension.swift */,
+				1543E9892F9BEE1800769EEF /* Info.plist */,
+				1543E98A2F9BEE1800769EEF /* ScreenTimeMonitorExtention.entitlements */,
+			);
+			path = ScreenTimeMonitorExtention;
+			sourceTree = "<group>";
+		};
+		1543E9972F9BEE5400769EEF /* ScreenTimeReportExtention */ = {
+			isa = PBXGroup;
+			children = (
+				1543E9982F9BEE5400769EEF /* ScreenTimeReportExtention.swift */,
+				1543E99A2F9BEE5400769EEF /* TotalActivityReport.swift */,
+				1543E99C2F9BEE5400769EEF /* TotalActivityView.swift */,
+				1543E99E2F9BEE5400769EEF /* Info.plist */,
+				1543E99F2F9BEE5400769EEF /* ScreenTimeReportExtention.entitlements */,
+			);
+			path = ScreenTimeReportExtention;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		1543E9502F9BEB7700769EEF /* Unrott */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1543E9752F9BEB7A00769EEF /* Build configuration list for PBXNativeTarget "Unrott" */;
+			buildPhases = (
+				1543E94D2F9BEB7700769EEF /* Sources */,
+				1543E94E2F9BEB7700769EEF /* Frameworks */,
+				1543E94F2F9BEB7700769EEF /* Resources */,
+				1543E9912F9BEE1800769EEF /* Embed Foundation Extensions */,
+				1543E9A62F9BEE5400769EEF /* Embed ExtensionKit Extensions */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1543E98C2F9BEE1800769EEF /* PBXTargetDependency */,
+				1543E9A12F9BEE5400769EEF /* PBXTargetDependency */,
+			);
+			name = Unrott;
+			productName = Unrott;
+			productReference = 1543E9512F9BEB7700769EEF /* Unrott.app */;
+			productType = "com.apple.product-type.application";
+		};
+		1543E9602F9BEB7A00769EEF /* UnrottTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1543E9782F9BEB7A00769EEF /* Build configuration list for PBXNativeTarget "UnrottTests" */;
+			buildPhases = (
+				1543E95D2F9BEB7A00769EEF /* Sources */,
+				1543E95E2F9BEB7A00769EEF /* Frameworks */,
+				1543E95F2F9BEB7A00769EEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1543E9632F9BEB7A00769EEF /* PBXTargetDependency */,
+			);
+			name = UnrottTests;
+			productName = UnrottTests;
+			productReference = 1543E9612F9BEB7A00769EEF /* UnrottTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		1543E96A2F9BEB7A00769EEF /* UnrottUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1543E97B2F9BEB7A00769EEF /* Build configuration list for PBXNativeTarget "UnrottUITests" */;
+			buildPhases = (
+				1543E9672F9BEB7A00769EEF /* Sources */,
+				1543E9682F9BEB7A00769EEF /* Frameworks */,
+				1543E9692F9BEB7A00769EEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1543E96D2F9BEB7A00769EEF /* PBXTargetDependency */,
+			);
+			name = UnrottUITests;
+			productName = UnrottUITests;
+			productReference = 1543E96B2F9BEB7A00769EEF /* UnrottUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		1543E9812F9BEE1800769EEF /* ScreenTimeMonitorExtention */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1543E98E2F9BEE1800769EEF /* Build configuration list for PBXNativeTarget "ScreenTimeMonitorExtention" */;
+			buildPhases = (
+				1543E97E2F9BEE1800769EEF /* Sources */,
+				1543E97F2F9BEE1800769EEF /* Frameworks */,
+				1543E9802F9BEE1800769EEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenTimeMonitorExtention;
+			productName = ScreenTimeMonitorExtention;
+			productReference = 1543E9822F9BEE1800769EEF /* ScreenTimeMonitorExtention.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
+		1543E9952F9BEE5400769EEF /* ScreenTimeReportExtention */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1543E9A32F9BEE5400769EEF /* Build configuration list for PBXNativeTarget "ScreenTimeReportExtention" */;
+			buildPhases = (
+				1543E9922F9BEE5400769EEF /* Sources */,
+				1543E9932F9BEE5400769EEF /* Frameworks */,
+				1543E9942F9BEE5400769EEF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ScreenTimeReportExtention;
+			productName = ScreenTimeReportExtention;
+			productReference = 1543E9962F9BEE5400769EEF /* ScreenTimeReportExtention.appex */;
+			productType = "com.apple.product-type.extensionkit-extension";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		1543E9492F9BEB7700769EEF /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1420;
+				LastUpgradeCheck = 1420;
+				TargetAttributes = {
+					1543E9502F9BEB7700769EEF = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					1543E9602F9BEB7A00769EEF = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 1543E9502F9BEB7700769EEF;
+					};
+					1543E96A2F9BEB7A00769EEF = {
+						CreatedOnToolsVersion = 14.2;
+						TestTargetID = 1543E9502F9BEB7700769EEF;
+					};
+					1543E9812F9BEE1800769EEF = {
+						CreatedOnToolsVersion = 14.2;
+					};
+					1543E9952F9BEE5400769EEF = {
+						CreatedOnToolsVersion = 14.2;
+					};
+				};
+			};
+			buildConfigurationList = 1543E94C2F9BEB7700769EEF /* Build configuration list for PBXProject "Unrott" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 1543E9482F9BEB7700769EEF;
+			productRefGroup = 1543E9522F9BEB7700769EEF /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				1543E9502F9BEB7700769EEF /* Unrott */,
+				1543E9602F9BEB7A00769EEF /* UnrottTests */,
+				1543E96A2F9BEB7A00769EEF /* UnrottUITests */,
+				1543E9812F9BEE1800769EEF /* ScreenTimeMonitorExtention */,
+				1543E9952F9BEE5400769EEF /* ScreenTimeReportExtention */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		1543E94F2F9BEB7700769EEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1543E95C2F9BEB7900769EEF /* Preview Assets.xcassets in Resources */,
+				1543E9592F9BEB7900769EEF /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E95F2F9BEB7A00769EEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E9692F9BEB7A00769EEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E9802F9BEE1800769EEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E9942F9BEE5400769EEF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1543E94D2F9BEB7700769EEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1543E9572F9BEB7700769EEF /* ContentView.swift in Sources */,
+				1543E9552F9BEB7700769EEF /* UnrottApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E95D2F9BEB7A00769EEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1543E9662F9BEB7A00769EEF /* UnrottTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E9672F9BEB7A00769EEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1543E9722F9BEB7A00769EEF /* UnrottUITestsLaunchTests.swift in Sources */,
+				1543E9702F9BEB7A00769EEF /* UnrottUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E97E2F9BEE1800769EEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1543E9882F9BEE1800769EEF /* DeviceActivityMonitorExtension.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1543E9922F9BEE5400769EEF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1543E99D2F9BEE5400769EEF /* TotalActivityView.swift in Sources */,
+				1543E9992F9BEE5400769EEF /* ScreenTimeReportExtention.swift in Sources */,
+				1543E99B2F9BEE5400769EEF /* TotalActivityReport.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1543E9632F9BEB7A00769EEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1543E9502F9BEB7700769EEF /* Unrott */;
+			targetProxy = 1543E9622F9BEB7A00769EEF /* PBXContainerItemProxy */;
+		};
+		1543E96D2F9BEB7A00769EEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1543E9502F9BEB7700769EEF /* Unrott */;
+			targetProxy = 1543E96C2F9BEB7A00769EEF /* PBXContainerItemProxy */;
+		};
+		1543E98C2F9BEE1800769EEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1543E9812F9BEE1800769EEF /* ScreenTimeMonitorExtention */;
+			targetProxy = 1543E98B2F9BEE1800769EEF /* PBXContainerItemProxy */;
+		};
+		1543E9A12F9BEE5400769EEF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1543E9952F9BEE5400769EEF /* ScreenTimeReportExtention */;
+			targetProxy = 1543E9A02F9BEE5400769EEF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		1543E9732F9BEB7A00769EEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		1543E9742F9BEB7A00769EEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		1543E9762F9BEB7A00769EEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Unrott/Unrott.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Unrott/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.Unrott;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1543E9772F9BEB7A00769EEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Unrott/Unrott.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"Unrott/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.Unrott;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1543E9792F9BEB7A00769EEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.UnrottTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Unrott.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Unrott";
+			};
+			name = Debug;
+		};
+		1543E97A2F9BEB7A00769EEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.UnrottTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Unrott.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Unrott";
+			};
+			name = Release;
+		};
+		1543E97C2F9BEB7A00769EEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.UnrottUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Unrott;
+			};
+			name = Debug;
+		};
+		1543E97D2F9BEB7A00769EEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.UnrottUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Unrott;
+			};
+			name = Release;
+		};
+		1543E98F2F9BEE1800769EEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ScreenTimeMonitorExtention/ScreenTimeMonitorExtention.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenTimeMonitorExtention/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenTimeMonitorExtention;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.Unrott.ScreenTimeMonitorExtention;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1543E9902F9BEE1800769EEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ScreenTimeMonitorExtention/ScreenTimeMonitorExtention.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenTimeMonitorExtention/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenTimeMonitorExtention;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.Unrott.ScreenTimeMonitorExtention;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1543E9A42F9BEE5400769EEF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ScreenTimeReportExtention/ScreenTimeReportExtention.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenTimeReportExtention/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenTimeReportExtention;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.Unrott.ScreenTimeReportExtention;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1543E9A52F9BEE5400769EEF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = ScreenTimeReportExtention/ScreenTimeReportExtention.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ScreenTimeReportExtention/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ScreenTimeReportExtention;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.linusklg.Unrott.ScreenTimeReportExtention;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1543E94C2F9BEB7700769EEF /* Build configuration list for PBXProject "Unrott" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1543E9732F9BEB7A00769EEF /* Debug */,
+				1543E9742F9BEB7A00769EEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1543E9752F9BEB7A00769EEF /* Build configuration list for PBXNativeTarget "Unrott" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1543E9762F9BEB7A00769EEF /* Debug */,
+				1543E9772F9BEB7A00769EEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1543E9782F9BEB7A00769EEF /* Build configuration list for PBXNativeTarget "UnrottTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1543E9792F9BEB7A00769EEF /* Debug */,
+				1543E97A2F9BEB7A00769EEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1543E97B2F9BEB7A00769EEF /* Build configuration list for PBXNativeTarget "UnrottUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1543E97C2F9BEB7A00769EEF /* Debug */,
+				1543E97D2F9BEB7A00769EEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1543E98E2F9BEE1800769EEF /* Build configuration list for PBXNativeTarget "ScreenTimeMonitorExtention" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1543E98F2F9BEE1800769EEF /* Debug */,
+				1543E9902F9BEE1800769EEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1543E9A32F9BEE5400769EEF /* Build configuration list for PBXNativeTarget "ScreenTimeReportExtention" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1543E9A42F9BEE5400769EEF /* Debug */,
+				1543E9A52F9BEE5400769EEF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 1543E9492F9BEB7700769EEF /* Project object */;
+}
